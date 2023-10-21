@@ -21,7 +21,6 @@ while True:
 
     results = hands.process(img_rgb)
 
-
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
             mp_drawing.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
@@ -32,15 +31,12 @@ while True:
             pinky_y = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_DIP].y
             middle_finger_y = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_DIP].y
 
-
             if index_finger_y < thumb_y:
                 hand_gesture = "pointing up"
             elif index_finger_y > thumb_y:
                 hand_gesture = "pointing down"
             elif pinky_y > thumb_y:
                 hand_gesture = "pinky up"
-            # elif middle_finger_y > thumb_y and middle_finger_y > index_finger_y:
-            #     hand_gesture = "middle up"
             else:
                 hand_gesture = "other"
 
@@ -50,8 +46,6 @@ while True:
                 pyautogui.press('volumedown')
             elif hand_gesture == "pinky up":
                 pyautogui.press("playpause")
-            # elif hand_gesture == "middle up":
-            #     pyautogui.press("prevtrack")
 
             cv2.imshow("Volume Control With Hand Gestures", img)
             key = cv2.waitKey(1)
